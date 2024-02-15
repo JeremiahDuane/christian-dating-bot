@@ -1,0 +1,6 @@
+{
+    "handles" : {
+        "inputSuffix" : "-feed",
+        "outputSuffix" : "-discussion"
+    }
+}

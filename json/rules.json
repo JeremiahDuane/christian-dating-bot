@@ -1,0 +1,34 @@
+{
+    "heading": "SERVER RULES",
+    "revised": "02/15/2024",
+    "tenets": [
+      {
+        "rule": "Be family friendly",
+        "description": "This is a Christian server, please present yourself as such."
+      },
+      {
+        "rule": "No passing judgement on someone's salvation",
+        "description": "Our community is comprised of individuals from various denominations and backgrounds who share a common Christian faith. We adhere to the Nicene Creed, and as such, proselytizing toward belief systems that diverge from this creed is not permitted, nor is passing judgement against any sect under that umbrella."
+      },
+      {
+        "rule": "No incitement of arguments or unhealthy debate",
+        "description": "If you are creating or responding to a discussion topic, remember to\n  a) ...be relevant to the topic of the post.\n  b) ...be constructive.\n  c) ...avoid stereotyping."
+      },
+      {
+        "rule": "You must be at least 18 years old to join participate in this server",
+        "description": "By continuing, you affirm you are at least 18 years old."
+      },
+      {
+        "rule": "Treat everyone with respect",
+        "description": "Absolutely no harassment, witch hunting, sexism, racism, or hate speech will be tolerated."
+      },
+      {
+        "rule": "No advertisement or self-promotion without mod approval",
+        "description": "This includes, but is not limited to, spam, server invites, or advertisements sent via direct-messages to community members."
+      },
+      {
+        "rule": "No age-restricted or obscene content",
+        "description": "This includes text, images, or links featuring nudity, sex, hard violence, or other graphically disturbing content."
+      }
+    ]
+  }

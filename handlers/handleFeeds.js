@@ -23,7 +23,7 @@ function createForumPost(topic, forum, message) {
 	let content;
 
 	if (embed) {
-		title = trimContent(embed.description).replace("*", "")
+		title = trimContent(embed.description).replaceAll("*", "")
 		content = `${embed.description}\n\n${embed?.url ? 'Source: ' + embed?.url : ''}`
 	} else {
 		title = trimContent(message.content).replace("*", "")

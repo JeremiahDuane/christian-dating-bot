@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js');
-const json = require('../../json/rules.json')
+const { parseRulesAsList, parseRulesHeading, parseRulesRevision, parseRuleByNumber } = require('../../json/parseRules');
+const { discordQuote } = require('../../helpers/discordQuote');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -11,19 +12,15 @@ module.exports = {
 				.setDescription('The specific rule, if any.')),
 	async execute(interaction) {
         const tenet = interaction.options.getString('rule_number');
-        const tenets = json.tenets.map((tenet, index) => `${index+1}. **${tenet.rule}**: ${tenet.description}` )
+        const tenets = parseRulesAsList() 
         
         let result;
         if (tenet && (typeof parseInt(tenet) == "number")) {
-            const tenetNumber = parseInt(tenet)-1
-            result = tenetNumber <= 0 
-                ? tenets[0] : tenetNumber > tenets.length - 1 
-                ? tenets[tenets.length - 1] 
-                : tenets[tenetNumber] 
+            result = parseRuleByNumber(tenet)
         } else {
-            result = `***${json.heading}***\n${tenets.join("\n")}\n\`Revised:${json.revised}\``
+            result = `***${parseRulesHeading()}***\n${tenets.join("\n")}\n${parseRulesRevision()}`
         }
 
-        await interaction.reply(result);
+        await interaction.reply(discordQuote(result));
 	},
 };

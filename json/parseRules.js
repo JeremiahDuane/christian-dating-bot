@@ -7,7 +7,7 @@ const parseRulesAsList = () => json.tenets.map((tenet, index) => `${index+1}. **
 
 const parseRulesHeading = () => json.heading
 
-const parseRulesRevision = () => `Revised: ${json.revision}`
+const parseRulesRevision = () => `\`Revised: ${json.revised}\``
 
 const parseRuleIndex = (index) => {
     const tenetNumber = parseInt(index)-1

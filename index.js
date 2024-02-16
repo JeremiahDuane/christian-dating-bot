@@ -1,6 +1,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, Events, GatewayIntentBits, ThreadAutoArchiveDuration } = require('discord.js');
+const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const { handleFeeds } = require('./handlers/handleFeeds');
 require('dotenv').config()
 

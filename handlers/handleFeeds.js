@@ -1,3 +1,4 @@
+const { ThreadAutoArchiveDuration } = require('discord.js');
 const { handles } = require('../config.json')
 
 function handleFeeds(message) {

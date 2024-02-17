@@ -35,10 +35,10 @@ function createForumPost(topic, forum, message) {
 	let content;
 
 	if (embed) {
-		title = parseSubstringBetweenDoubleAsterisks(trimContent(embed.description))
+		title = trimContent(parseSubstringBetweenDoubleAsterisks(embed.description))
 		content = `${embed.description}\n\n${embed?.url ? 'Source: ' + embed?.url : ''}`
 	} else {
-		title = parseSubstringBetweenDoubleAsterisks(trimContent(message.content))
+		title = trimContent(parseSubstringBetweenDoubleAsterisks(message.content))
 		content = message.content
 	}
 

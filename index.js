@@ -2,6 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const { handleFeeds } = require('./handlers/handleFeeds');
+const { handleCurses } = require('./handlers/handleCurses');
 require('dotenv').config()
 
 const { CLIENT_ID: clientId, GUILD_ID: guildId, DISCORD_TOKEN: token } = process.env
@@ -32,6 +33,7 @@ client.once(Events.ClientReady, readyClient => {
 
 client.on(Events.MessageCreate, async (message) => {
 	handleFeeds(message)
+	handleCurses(message)
 })
 
 client.on(Events.InteractionCreate, async interaction => {

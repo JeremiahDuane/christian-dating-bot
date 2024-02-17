@@ -1,5 +1,6 @@
 const { ThreadAutoArchiveDuration } = require('discord.js');
-const { handles } = require('../config.json')
+const { handles } = require('../config.json');
+const { log, sys } = require('../helpers/logger');
 
 function handleFeeds(message) {
 	const { inputSuffix, outputSuffix } = handles
@@ -23,10 +24,10 @@ function createForumPost(topic, forum, message) {
 	let content;
 
 	if (embed) {
-		title = trimContent(embed.description).replaceAll("*", "")
+		title = parseSubstringBetweenDoubleAsterisks(trimContent(message.content))
 		content = `${embed.description}\n\n${embed?.url ? 'Source: ' + embed?.url : ''}`
 	} else {
-		title = trimContent(message.content).replace("*", "")
+		title = parseSubstringBetweenDoubleAsterisks(trimContent(message.content))
 		content = message.content
 	}
 
@@ -38,7 +39,17 @@ function createForumPost(topic, forum, message) {
 				content: content
 			},
 		})
-		.catch(console.error);
+		.catch(error => log(sys.message.thread.unknown, error));
+}
+function parseSubstringBetweenDoubleAsterisks(text) {
+    const startIndex = text.indexOf('**');
+    const endIndex = text.lastIndexOf('**');
+
+    if (startIndex !== -1 && endIndex !== -1 && startIndex !== endIndex) {
+        return text.substring(startIndex + 2, endIndex);
+    } else {
+		return text;
+	}
 }
 
 module.exports = { handleFeeds }

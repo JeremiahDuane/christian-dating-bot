@@ -1,0 +1,10 @@
+{
+  "message": {
+    "deleted": {
+      "cursing": "Message deleted for cursing."
+    },
+    "thread": {
+      "unknown": "Failed to create thread."
+    }
+  }
+}

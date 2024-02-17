@@ -8,12 +8,12 @@ function log(text, error) {
     } else {
         console.log(text);
     }
-    const logFilePath = path.join(__dirname, 'logs.txt');
+    const logFilePath = path.join('../', 'logs.txt');
     const timestamp = new Date().toISOString();
     const prefix = !!error ? 'ERROR: ' : '';
 
     // Create log message with timestamp and prefix
-    const logMessage = `[${timestamp}] ${prefix}${text}${error ? "\n\t" + error : ''}`;
+    const logMessage = `[${timestamp}] ${prefix}${text}${error ? "\n\t" + error : ''}\n`;
 
     // Append log message to the log file
     fs.appendFile(logFilePath, logMessage, (err) => {

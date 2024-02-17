@@ -3,7 +3,11 @@ const path = require('path');
 const sys = require('../json/log.json')
 
 function log(text, error) {
-    console.error(text, error);
+    if (error){
+        console.error(text, error);
+    } else {
+        console.log(text);
+    }
     const logFilePath = path.join(__dirname, 'logs.txt');
     const timestamp = new Date().toISOString();
     const prefix = !!error ? 'ERROR: ' : '';

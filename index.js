@@ -3,6 +3,7 @@ const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const { handleFeeds } = require('./handlers/handleFeeds');
 const { handleCurses } = require('./handlers/handleCurses');
+const { log } = require('./helpers/logger');
 require('dotenv').config()
 
 const { CLIENT_ID: clientId, GUILD_ID: guildId, DISCORD_TOKEN: token } = process.env
@@ -22,13 +23,13 @@ for (const folder of commandFolders) {
 		if ('data' in command && 'execute' in command) {
 			client.commands.set(command.data.name, command);
 		} else {
-			console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+			log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
 		}
 	}
 }
 
 client.once(Events.ClientReady, readyClient => {
-	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
+	log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
 
 client.on(Events.MessageCreate, async (message) => {

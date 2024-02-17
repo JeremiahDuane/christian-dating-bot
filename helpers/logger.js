@@ -8,7 +8,7 @@ function log(text, error) {
     } else {
         console.log(text);
     }
-    const logFilePath = path.join('../', 'logs.txt');
+    const logFilePath = path.join('/', 'logs.txt');
     const timestamp = new Date().toISOString();
     const prefix = !!error ? 'ERROR: ' : '';
 

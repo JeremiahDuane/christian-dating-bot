@@ -1,9 +1,15 @@
 const { log, sys } = require('../helpers/logger');
 const { parseCurses, parseCursesReply, parseCursesMessage } = require('../json/parseCurses');
 
-async function handleCursesInThreads(thread) {
-	const content = thread.name.toLowerCase();
+function isBanned(content) {
+	const bannedWords = parseCurses();
+	const contentLower = content.toLowerCase()
+	const hasBannedWord = bannedWords.some(word => contentLower.includes(word.toLowerCase()));
+	return hasBannedWord
+}
 
+async function handleCursesInThreads(thread) {
+	const content = thread.name;
 	// If the message contains a banned word, delete it
 	if (isBanned(content)) {
 		try {
@@ -20,7 +26,7 @@ async function handleCursesInThreads(thread) {
 }
 
 async function handleCursesInMessages(message) {
-	const content = message.content.toLowerCase();
+	const content = message.content;
 	
 	// If the message contains a banned word, delete it
 	if (isBanned(content)) {
@@ -34,14 +40,6 @@ async function handleCursesInMessages(message) {
 			log(sys.message.deleted.cursing, error);
 		}
 	}
-}
-
-async function isBanned(content) {
-	// Get the banned words using the helper function
-	const bannedWords = parseCurses();
-
-	const hasBannedWord = bannedWords.some(word => content.includes(word.toLowerCase()));
-	return hasBannedWord
 }
 
 module.exports = {

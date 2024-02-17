@@ -39,7 +39,7 @@ function createForumPost(topic, forum, message) {
 				content: content
 			},
 		})
-		.catch(error => log(sys.message.thread.unknown, error));
+		.catch(error => log(sys.thread.unknown, error));
 }
 function parseSubstringBetweenDoubleAsterisks(text) {
     const startIndex = text.indexOf('**');

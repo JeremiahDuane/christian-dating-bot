@@ -2,7 +2,8 @@ const json = require('./curses.json')
 const fs = require('fs');
 const path = require('path');
 
-const parseCursesMessage = () => "Sir, this is a Christian Server."
+const parseCursesMessage = () => "Your post was deleted for banned language. If you think this was done in error, then please contact the mods."
+const parseCursesReply = () => "Sir, this is a Christian Server."
 
 function parseCurses() {
     // Extract banned words for each language
@@ -21,5 +22,6 @@ function parseCurses() {
 
 module.exports = { 
     parseCurses,
-    parseCursesMessage
+    parseCursesMessage,
+    parseCursesReply
 }

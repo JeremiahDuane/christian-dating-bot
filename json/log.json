@@ -2,9 +2,12 @@
   "message": {
     "deleted": {
       "cursing": "Message deleted for cursing."
-    },
-    "thread": {
-      "unknown": "Failed to create thread."
+    }
+  },
+  "thread": {
+    "unknown": "Failed to create thread.",
+    "deleted": {
+      "cursing": "Message deleted for cursing."
     }
   }
 }

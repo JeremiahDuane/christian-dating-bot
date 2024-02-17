@@ -2,7 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const { handleFeeds } = require('./handlers/handleFeeds');
-const { handleCurses } = require('./handlers/handleCurses');
+const { handleCursesInMessages, handleCursesInThreads } = require('./handlers/handleCurses');
 const { log } = require('./helpers/logger');
 require('dotenv').config()
 
@@ -29,12 +29,19 @@ for (const folder of commandFolders) {
 }
 
 client.once(Events.ClientReady, readyClient => {
+	log(`-------------------------------------------`);
 	log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
 
 client.on(Events.MessageCreate, async (message) => {
 	handleFeeds(message)
-	handleCurses(message)
+	// Ignore messages from bots
+	if (message.author.bot) return;
+	handleCursesInMessages(message)
+})
+
+client.on(Events.ThreadCreate, async (thread) => {
+	handleCursesInThreads(thread)
 })
 
 client.on(Events.InteractionCreate, async interaction => {

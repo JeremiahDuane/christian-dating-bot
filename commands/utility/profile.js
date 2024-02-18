@@ -19,7 +19,7 @@ module.exports = {
 		const channel = await guild.channels.cache.find(channel => channel.name === config.channels.introductions);
 		const profile = await channel.threads.cache.find(thread => thread.ownerId === target.id)
 	
-		const dm = profile.id 
+		const dm = profile && profile.id 
 			? `${discordMentionUser(target.id)}'s profile can be read here: ${discordMentionMessage(guild.id, profile.id, profile.id)}`
 			: `${discordMentionUser(target.id)} does not have a profile. `
 

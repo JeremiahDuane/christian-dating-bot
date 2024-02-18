@@ -1,62 +1,48 @@
-const fs = require('node:fs');
-const path = require('node:path');
-const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
+const { Events } = require('discord.js');
 const { handleFeeds } = require('./handlers/handleFeeds');
 const { handleCursesInMessages, handleCursesInThreads } = require('./handlers/handleCurses');
 const { log } = require('./helpers/logger');
+const { bot } = require('./bot');
+const { handleAddIntroducedRole } = require('./handlers/handleAddIntroducedRole');
+const { handleRemovedIntroducedRole } = require('./handlers/handleRemoveIntroducedRole');
 require('dotenv').config()
 
 const { CLIENT_ID: clientId, GUILD_ID: guildId, DISCORD_TOKEN: token } = process.env
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
-
-client.commands = new Collection();
-const foldersPath = path.join(__dirname, 'commands');
-const commandFolders = fs.readdirSync(foldersPath);
-
-for (const folder of commandFolders) {
-	const commandsPath = path.join(foldersPath, folder);
-	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
-	for (const file of commandFiles) {
-		const filePath = path.join(commandsPath, file);
-		const command = require(filePath);
-		if ('data' in command && 'execute' in command) {
-			client.commands.set(command.data.name, command);
-		} else {
-			log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
-		}
-	}
-}
-
-client.once(Events.ClientReady, readyClient => {
+bot.once(Events.ClientReady, readyClient => {
 	log(`-------------------------------------------`);
 	log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
 
-client.on(Events.MessageCreate, async (message) => {
+bot.on(Events.MessageCreate, async (message) => {
 	handleFeeds(message)
 	// Ignore messages from bots
 	if (message.author.bot) return;
 	handleCursesInMessages(message)
 })
 
-client.on(Events.ThreadCreate, async (thread) => {
+bot.on(Events.ThreadCreate, async (thread) => {
 	handleCursesInThreads(thread)
+	handleAddIntroducedRole(thread)
 })
 
-client.on(Events.InteractionCreate, async interaction => {
+bot.on(Events.ThreadDelete, async (thread) => {
+	handleRemovedIntroducedRole(thread)
+})
+
+bot.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
 	const command = interaction.client.commands.get(interaction.commandName);
 
 	if (!command) {
-		console.error(`No command matching ${interaction.commandName} was found.`);
+		log(`No command matching ${interaction.commandName} was found.`);
 		return;
 	}
 
 	try {
 		await command.execute(interaction);
 	} catch (error) {
-		console.error(error);
+		log('There was an error while executing a command.', error);
 		if (interaction.replied || interaction.deferred) {
 			await interaction.followUp({ content: 'There was an error while executing this command!', ephemeral: true });
 		} else {
@@ -65,4 +51,4 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 });
 
-client.login(token);
+bot.login(token);

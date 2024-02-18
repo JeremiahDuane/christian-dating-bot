@@ -2,5 +2,12 @@
     "handles" : {
         "inputSuffix" : "-feed",
         "outputSuffix" : "-discussion"
+    },
+    "channels" : {
+        "introductions" : "introductions"
+    },
+    "roles" : {
+        "introduced" : "1208561221989834842",
+        "unintroduced" : "1208562221794328708"
     }
 }

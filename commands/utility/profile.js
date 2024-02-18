@@ -27,5 +27,6 @@ module.exports = {
 			: `${discordMentionUser(target.id)} does not have a profile. `
 
 		await interaction.member.send(dm);
+		await interaction.reply("Message sent to your direct mailbox.");
 	},
 };

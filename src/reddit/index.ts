@@ -1,5 +1,5 @@
-import { fetchPosts } from "./query/fetchPosts";
+import { log } from "@/log";
 
 export async function initReddit() {
-    console.log(await fetchPosts())
+  log("Reddit Init.");
 }

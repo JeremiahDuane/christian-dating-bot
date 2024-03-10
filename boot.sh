@@ -1,3 +1,3 @@
 #! /bin/bash
-node index.js &
-node deploy-commands.js
+node index.ts &
+node deploy-commands.ts

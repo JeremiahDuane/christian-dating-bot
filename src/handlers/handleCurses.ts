@@ -39,7 +39,6 @@ async function handleCursesInThreads(
 
 async function handleCursesInMessages(message: any): Promise<void> {
   const content: string = message.content;
-  console.log("2", message, content);
   // If the message contains a banned word, delete it
   if (isBanned(content)) {
     try {

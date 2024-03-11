@@ -1,2 +1,2 @@
 #! /bin/bash
-node index.ts
+npm start

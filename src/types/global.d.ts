@@ -5,3 +5,9 @@ export type ForumPost = {
   author: string;
   createdAt: Date;
 };
+
+export type SubredditPost = {
+  title: string;
+  content?: string;
+  url?: string;
+};

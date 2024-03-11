@@ -9,6 +9,16 @@
   },
   "reddit": {
     "subreddit": "christiandating",
-    "excludedFlair": "introduction"
+    "excludedFlair": "introduction",
+    "url": "https://www.reddit.com/r/ChristianDating/",
+    "permaLinks": {
+      "introductions": "search/?q=flair%3AIntroduction&t=month"
+    },
+    "flair": {
+      "meta": "eea11990-555d-11ee-9a56-8e610c3ed60a",
+      "introduction": "cf32e8b8-0066-11ea-9201-0e6213c04582",
+      "needAdvice": "e0c50e6c-0066-11ea-b771-0e515ff82629",
+      "discussion": "5ba63174-7b66-11ed-afdf-ae95439eb3ec"
+    }
   }
 }

@@ -1,7 +1,7 @@
 import { createForumPost } from "@/actions/createForumPost";
 import bot from "@/bot";
 import { parseRedditSubmission } from "@/helpers/parseRedditSubmission";
-import { fetchPosts } from "@/reddit/query/fetchPosts";
+import { fetchPosts } from "@/gateways/reddit/fetchPosts";
 import { log } from "console";
 import config from "@/config.json";
 import { ForumChannel } from "discord.js";

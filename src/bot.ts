@@ -41,7 +41,9 @@ const discordOptions = {
   ],
 };
 
-export default new Bot({
+const bot = new Bot({
   discord: new DiscordClient(discordOptions, discordLoginOptions, commands),
   reddit: new RedditClient(redditLoginOptions),
 });
+
+export default bot;

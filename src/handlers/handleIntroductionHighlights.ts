@@ -12,8 +12,8 @@ function isFemale(title: string): boolean {
 }
 
 export async function handleIntroductionPostHighlights() {
-  const malePosts: string[] = ["Men:"];
-  const femalePosts: string[] = ["Women:"];
+  const malePosts: string[] = [];
+  const femalePosts: string[] = [];
   const posts = await fetchIntroductionPosts();
 
   posts.forEach((post) => {
@@ -45,16 +45,22 @@ export async function handleIntroductionPostHighlights() {
     .replace("{yyyy}", `${date.getFullYear()}`)
     .replace("{mmmm}", months[date.getMonth()]);
 
-  const content = [
-    json.introductions.header,
-    ...malePosts,
-    ...femalePosts,
-    json.introductions.footer,
-  ].join("\n\n");
+  const content = [];
+  if (json.introductions.header) content.push(json.introductions.header);
+  content.push("\n");
+  if (malePosts.length) content.push("---------");
+  if (malePosts.length) content.push("**Male Profiles**");
+  if (malePosts.length) content.push(...malePosts);
+  if (malePosts.length || femalePosts.length) content.push("---------");
+  if (femalePosts.length) content.push("**Female Profiles**");
+  if (femalePosts.length) content.push(...femalePosts);
+  if (femalePosts.length) content.push("---------");
+  content.push("\n");
+  if (json.introductions.footer) content.push(json.introductions.footer);
 
   const message = {
     title: title,
-    content: content,
+    content: content.join("\n\n"),
   };
 
   postMessageIfNotPostedYet(message);

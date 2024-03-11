@@ -19,14 +19,14 @@ export async function postMessageIfNotPostedYet(
 
   // Submit the selfpost
   try {
-    if (!messageAlreadyPosted) {
+    if (!messageAlreadyPosted && !bot.env.DISCORD_ONLY) {
       monthLastPosted = thisMonth;
 
-      bot.reddit.getSubreddit(config.reddit.subreddit).submitSelfpost({
+      bot.reddit.subreddit.submitSelfpost({
         title: message.title,
         text: message.content,
         subredditName: config.reddit.subreddit,
-        flairId: config.reddit.flair.meta,
+        flairId: bot.reddit.flair.meta,
       });
     }
   } catch (error) {

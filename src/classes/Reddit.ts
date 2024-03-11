@@ -1,7 +1,16 @@
-import Snoowrap from 'snoowrap';
+import { RedditFlair } from "@/types/reddit";
+import Snoowrap, { Subreddit } from "snoowrap";
 
 export class RedditClient extends Snoowrap {
-    constructor(options?: Snoowrap.SnoowrapOptions) {
-        super(options);
-    }
+  subreddit: Subreddit;
+  flair: RedditFlair;
+  constructor(
+    options?: Snoowrap.SnoowrapOptions,
+    flair?: RedditFlair,
+    subreddit?: string
+  ) {
+    super(options);
+    this.flair = flair;
+    this.subreddit = this.getSubreddit(subreddit);
+  }
 }

@@ -10,14 +10,6 @@ import everyMinute from "@/listeners/everyMinute";
 import everyHour from "@/listeners/everyHour";
 import bot from "@/bot";
 
-log(new EventMessage("EVERY", null, null));
-// Run every minute (60,000 milliseconds)
-setInterval(everyMinute, 60 * 1000);
-everyMinute();
-// Run every hour (360,000 milliseconds)
-setInterval(everyHour, 60 * 60 * 1000);
-everyHour();
-
 bot.discord.once(Events.ClientReady, (readyClient: Client) => {
   log(new EventMessage(Events.ClientReady, readyClient.user?.tag, readyClient));
   onceClientReady(readyClient);
@@ -44,3 +36,11 @@ bot.discord.on(Events.InteractionCreate, async (interaction: Interaction) => {
 });
 
 bot.discord.auth();
+
+log(new EventMessage("EVERY", null, null));
+// Run every minute (60,000 milliseconds)
+setInterval(everyMinute, 60 * 1000);
+everyMinute();
+// Run every hour (360,000 milliseconds)
+setInterval(everyHour, 60 * 60 * 1000);
+everyHour();

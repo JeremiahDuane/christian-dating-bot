@@ -5,6 +5,7 @@ import { Bot } from "@/classes/Bot";
 import { RedditClient } from "@/classes/Reddit";
 import { SnoowrapOptions } from "snoowrap";
 import { configDotenv } from "dotenv";
+import { RedditFlair } from "./types/reddit";
 
 configDotenv();
 
@@ -17,6 +18,11 @@ const {
   REDDIT_CLIENT_SECRET,
   REDDIT_USERNAME,
   REDDIT_PASSWORD,
+  REDDIT_SUBREDDIT,
+  REDDIT_FLAIR_META,
+  REDDIT_FLAIR_INTRODUCTION,
+  REDDIT_FLAIR_NEEDADVICE,
+  REDDIT_FLAIR_DISCUSSION,
 } = process.env;
 
 const discordLoginOptions = {
@@ -33,6 +39,13 @@ const redditLoginOptions: SnoowrapOptions = {
   password: REDDIT_PASSWORD,
 };
 
+const redditFlair: RedditFlair = {
+  meta: REDDIT_FLAIR_META,
+  introduction: REDDIT_FLAIR_INTRODUCTION,
+  needAdvice: REDDIT_FLAIR_NEEDADVICE,
+  discussion: REDDIT_FLAIR_DISCUSSION,
+};
+
 const discordOptions = {
   intents: [
     GatewayIntentBits.Guilds,
@@ -42,8 +55,14 @@ const discordOptions = {
 };
 
 const bot = new Bot({
-  discord: new DiscordClient(discordOptions, discordLoginOptions, commands),
-  reddit: new RedditClient(redditLoginOptions),
+  discord: new DiscordClient(
+    discordOptions,
+    discordLoginOptions,
+    commands,
+    DISCORD_GUILD_ID
+  ),
+  reddit: new RedditClient(redditLoginOptions, redditFlair, REDDIT_SUBREDDIT),
+  env: process.env,
 });
 
 export default bot;

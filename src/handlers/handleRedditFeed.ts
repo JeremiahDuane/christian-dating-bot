@@ -1,20 +1,26 @@
 import { createForumPost } from "@/actions/createForumPost";
 import bot from "@/bot";
-import { parseRedditSubmission } from "@/helpers/parseRedditSubmission";
+import { parseRedditSubmissions } from "@/helpers/parseRedditSubmission";
 import { fetchPosts } from "@/gateways/reddit/fetchPosts";
-import { log } from "console";
+import { log } from "@/log";
 import config from "@/config.json";
 import { ForumChannel } from "discord.js";
+import { removeExistingPosts } from "@/actions/removeExistingPosts";
 
 export async function handleRedditFeed() {
   try {
     const redditPosts = await fetchPosts();
-    const forum = (await bot.discord.channels.fetch(
-      config.channels.redditDiscussion
-    )) as ForumChannel;
+    const forum = bot.discord
+      .guild()
+      .channels.cache.find(
+        (channel: any) => channel.name === config.channels.redditDiscussion
+      ) as ForumChannel;
 
-    redditPosts.forEach((redditPost) => {
-      const post = parseRedditSubmission(redditPost);
+    const posts = parseRedditSubmissions(redditPosts);
+
+    const filteredPosts = await removeExistingPosts(forum, posts);
+
+    filteredPosts.forEach((post) => {
       createForumPost(forum, post);
     });
   } catch (error) {

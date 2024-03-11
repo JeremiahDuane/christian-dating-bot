@@ -8,11 +8,9 @@ export async function fetchPostsInRange(
   flair?: string
 ): Promise<Submission[]> {
   // Perform the Reddit search with the constructed query
-  const searchResults = await bot.reddit
-    .getSubreddit(config.reddit.subreddit)
-    .getNew({
-      limit: 100,
-    });
+  const searchResults = await bot.reddit.subreddit.getNew({
+    limit: 100,
+  });
 
   // Return the array of submissions from the search results
   let filtered = searchResults.filter(

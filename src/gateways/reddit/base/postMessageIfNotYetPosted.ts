@@ -1,6 +1,4 @@
 import bot from "@/bot";
-import { fetchPostsFromCurrentMonth } from "../fetchPostsFromCurrentMonth";
-import config from "@/config.json";
 import { SubredditPost } from "@/types/global";
 import { log } from "@/log";
 
@@ -25,7 +23,7 @@ export async function postMessageIfNotPostedYet(
       bot.reddit.subreddit.submitSelfpost({
         title: message.title,
         text: message.content,
-        subredditName: config.reddit.subreddit,
+        subredditName: "",
         flairId: bot.reddit.flair.meta,
       });
     }

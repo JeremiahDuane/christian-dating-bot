@@ -15,8 +15,8 @@ export function displayForumPostBody(post: ForumPost): string {
   const text = (t: string, c: string, u: string) =>
     `**${t}**\n${c}\n\nSource: ${u}`;
 
-  if (text(title, content, url).length > 1990) {
-    return text(title, content.slice(0, 1990) + "...", url);
+  if (text(title, content, url).length > 1850) {
+    return text(title, content.slice(0, 1850) + "...", url);
   } else return text(title, content, url);
 }
 

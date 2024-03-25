@@ -12,6 +12,11 @@
     "url": "https://www.reddit.com/r/ChristianDating/",
     "permaLinks": {
       "introductions": "search/?q=flair%3AIntroduction&t=month"
+    },
+    "flair": {
+      "discussion": {
+        "text": "discussion"
+      }
     }
   }
 }

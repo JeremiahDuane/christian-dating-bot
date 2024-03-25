@@ -9,7 +9,7 @@ import { removeExistingPosts } from "@/actions/removeExistingPosts";
 
 export async function handleRedditFeed() {
   try {
-    const redditPosts = await fetchPosts();
+    const redditPosts = await fetchPosts(config.reddit.flair.discussion.text);
     const forum = bot.discord
       .guild()
       .channels.cache.find(

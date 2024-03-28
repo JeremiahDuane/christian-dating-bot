@@ -6,7 +6,7 @@ import { log } from "@/log";
 import config from "@/config.json";
 import { ForumChannel } from "discord.js";
 import { removeExistingPosts } from "@/actions/removeExistingPosts";
-import { removeRemovalPosts } from "@/actions/removalRemovalPosts";
+import { removeRemovalPosts } from "@/actions/removeRemovalPosts";
 
 export async function handleRedditFeed() {
   try {
@@ -18,11 +18,12 @@ export async function handleRedditFeed() {
       ) as ForumChannel;
 
     const posts = parseRedditSubmissions(redditPosts);
+    await removeRemovalPosts(forum, [...posts]);
+    const postsFilteredOutExisting = await removeExistingPosts(forum, [
+      ...posts,
+    ]);
 
-    await removeRemovalPosts(forum, posts);
-    const postsFilteredOutExisting = await removeExistingPosts(forum, posts);
-
-    postsFilteredOutExisting.forEach((post) => {
+    postsFilteredOutExisting.reverse().forEach((post) => {
       createForumPost(forum, post);
     });
   } catch (error) {

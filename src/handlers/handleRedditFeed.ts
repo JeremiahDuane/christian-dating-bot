@@ -19,11 +19,8 @@ export async function handleRedditFeed() {
 
     const posts = parseRedditSubmissions(redditPosts);
 
-    const postsFilteredOutRemovals = await removeRemovalPosts(forum, posts);
-    const postsFilteredOutExisting = await removeExistingPosts(
-      forum,
-      postsFilteredOutRemovals
-    );
+    await removeRemovalPosts(forum, posts);
+    const postsFilteredOutExisting = await removeExistingPosts(forum, posts);
 
     postsFilteredOutExisting.forEach((post) => {
       createForumPost(forum, post);

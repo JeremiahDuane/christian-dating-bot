@@ -11,7 +11,7 @@ export async function removeExistingPosts(
       thread.name.replace(/ /g, "")
     );
     const threadsToCheck =
-      threads.length > 100 ? threads.reverse().slice(0, 100) : threads;
+      threads.length > 50 ? threads.reverse().slice(0, 50) : threads;
 
     const result = posts.filter((post) => {
       return !threadsToCheck.includes(post.title.replace(/ /g, ""));

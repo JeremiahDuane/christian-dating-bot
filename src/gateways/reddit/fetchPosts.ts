@@ -2,7 +2,7 @@ import bot from "@/bot";
 import { Submission } from "snoowrap";
 
 async function fetchPosts(flair?: string): Promise<Submission[]> {
-  const posts = await bot.reddit.subreddit.getNew({ limit: 100 });
+  const posts = await bot.reddit.subreddit.getNew({ limit: 500 });
   const result: Submission[] = [];
   posts.forEach((post) => {
     if (
@@ -12,7 +12,7 @@ async function fetchPosts(flair?: string): Promise<Submission[]> {
       result.push(post);
     }
   });
-  return result;
+  return result.length > 50 ? result.slice(0, 50) : result;
 }
 
 export { fetchPosts };

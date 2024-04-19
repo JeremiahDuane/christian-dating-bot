@@ -22,8 +22,12 @@ export async function handleRedditFeed() {
     const postsFilteredOutExisting = await removeExistingPosts(forum, [
       ...posts,
     ]);
-
-    postsFilteredOutExisting.reverse().forEach((post) => {
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const postsFilteredOutPast = postsFilteredOutExisting.filter(
+      (p) => p.createdAt >= yesterday
+    );
+    postsFilteredOutPast.reverse().forEach((post) => {
       createForumPost(forum, post);
     });
   } catch (error) {

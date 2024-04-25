@@ -6,7 +6,7 @@ import profileCommand from "@/commands/utility/profile";
 import rulesCommand from "@/commands/utility/rules";
 import serverCommand from "@/commands/utility/server";
 import userCommand from "@/commands/utility/user";
-import matchmakeCommand from "@/commands/utility/matchmake";
+
 import { DiscordCommandType } from "@/types/discord";
 export const commands = new Collection<string, DiscordCommandType>([
   ["ban", banCommand],

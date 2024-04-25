@@ -1,7 +1,8 @@
 {
   "channels": {
     "introductions": "introductions",
-    "redditDiscussion": "reddit-discussion"
+    "redditDiscussion": "reddit-discussion",
+    "modLog": "1207383720508784660"
   },
   "roles": {
     "introduced": "introduced",

@@ -1,6 +1,8 @@
 import { SlashCommandBuilder, PermissionFlagsBits } from "discord.js";
 import { parseRemoveMessageFromRuleNumber } from "@/json/parseRules";
 import { DiscordCommandType } from "@/types/discord";
+import { logModAction } from "@/actions/logModAction";
+import { ModAction } from "@/types/mod";
 
 const banCommand: DiscordCommandType = {
   data: new SlashCommandBuilder()
@@ -36,8 +38,13 @@ const banCommand: DiscordCommandType = {
       await message.author.send(
         parseRemoveMessageFromRuleNumber(tenet, reason)
       );
-      message.delete();
-      reply.delete();
+      await logModAction({
+        message: `${message.author.username}: ${message.content}`,
+        mod: interaction.user.username,
+        action: ModAction.MESSAGE_REMOVAL,
+      });
+      await message.delete();
+      await reply.delete();
     } else {
       await interaction.reply("No message found to delete.");
     }

@@ -3,7 +3,7 @@ import { ForumPost } from "@/types/global";
 export function displayForumPostTitle(post: ForumPost): string {
   const { title, content, url } = post;
 
-  if (title.length > 105) {
+  if (title.length > 95) {
     return title + "...";
   }
   return title;

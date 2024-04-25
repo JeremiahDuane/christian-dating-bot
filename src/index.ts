@@ -9,9 +9,11 @@ import onInteractionCreate from "@/listeners/onInteractionCreate";
 import everyMinute from "@/listeners/everyMinute";
 import everyHour from "@/listeners/everyHour";
 import bot from "@/bot";
+import { deployCommands } from "./util/deployCommands";
 
-bot.discord.once(Events.ClientReady, (readyClient: Client) => {
+bot.discord.once(Events.ClientReady, async (readyClient: Client) => {
   log(new EventMessage(Events.ClientReady, readyClient.user?.tag, readyClient));
+  await deployCommands();
   onceClientReady(readyClient);
 });
 

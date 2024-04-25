@@ -20,7 +20,7 @@ export async function deployCommands() {
     // The put method is used to fully refresh all commands in the guild with the current set
     const data = (await rest.put(
       `/applications/${clientId}/guilds/${guildId}/commands`,
-      { body: commands }
+      { body: commands.map((el) => el.data.toJSON()) }
     )) as Array<String>;
 
     log(`Successfully reloaded ${data.length} application (/) commands.`);

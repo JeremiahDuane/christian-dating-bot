@@ -7,7 +7,7 @@ async function fetchPosts(flair?: string): Promise<Submission[]> {
   posts.forEach((post) => {
     if (
       !flair ||
-      post?.link_flair_text.toLowerCase() === flair // Check if flair is not excluded
+      post?.link_flair_text?.toLowerCase() === flair // Check if flair is not excluded
     ) {
       result.push(post);
     }

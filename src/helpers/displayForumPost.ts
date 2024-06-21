@@ -4,7 +4,7 @@ export function displayForumPostTitle(post: ForumPost): string {
   const { title, content, url } = post;
 
   if (title.length > 95) {
-    return title + "...";
+    return title.substring(0,95) + "...";
   }
   return title;
 }
